@@ -1,0 +1,29 @@
+[
+    {
+        "_id": "5c8a1d5b0190b214360dc057",
+        "name": "Richard Guilliams",
+        "email": "richardlg231@gmail.com",
+        "role": "admin",
+        "active": true,
+        "photo": "user-1.jpg",
+        "password": "test1234"
+    },
+    {
+        "_id": "5c8a1d5b0190b214360dc058",
+        "name": "John Doe",
+        "email": "johndoe@gmail.com",
+        "role": "user",
+        "active": true,
+        "photo": "user-1.jpg",
+        "password": "test1234"
+    },
+    {
+        "_id": "5c8a1d5b0190b214360dc059",
+        "name": "Jane Doe",
+        "email": "janedoe@gmail.com",
+        "role": "user",
+        "active": true,
+        "photo": "user-1.jpg",
+        "password": "test1234"
+    }
+]

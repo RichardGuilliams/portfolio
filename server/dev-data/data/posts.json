@@ -1,0 +1,61 @@
+[        
+    {
+        "_id": "5c88fa8cf4afda39709c2957",
+        "title": "Post 3",
+        "thumbnail":"post-1-thumbnail.png",
+        "description": "An example blog post for testing purposes",
+        "blocks": [
+            {
+                "sections": [
+                    {
+                        "type":"p",
+                        "content":"This is the first block which is broken down into sections. this is for the purpose of section layout. This is the first section of the first block."
+                    },
+                    {
+                        "type":"img",
+                        "content":"post-1.png",
+                        "size":"1_2"
+                    }
+                ],
+                "display":"flex",
+                "layout": "horizontal",
+                "size": "sm",
+                "alignment": "start"
+            },
+            {
+                "sections": [
+                    {
+                        "type":"p",
+                        "content":"this is the first section of the second block in the post. As you can see the first section has text and an image which are aligned horizontally."
+                    },
+                    {
+                        "type":"img",
+                        "content":"post-1.png",
+                        "size":"1_2"
+                    }
+                ],
+                "display":"flex",
+                "layout": "vertical",
+                "size": "sm",
+                "alignment": "center"
+            },
+            {
+                "sections": [
+                    {
+                        "type":"img",
+                        "content":"post-1.png",
+                        "size":"1_2"
+                    },
+                    {
+                        "type":"p",
+                        "content":"this is the first section of the third block in the post. As you can see the first section has text and an image which are aligned horizontally."
+                    }
+                ],
+                "display":"flex",
+                "layout": "vertical",
+                "size": "sm",
+                "alignment": "end"
+            }
+        ]
+    }
+]
