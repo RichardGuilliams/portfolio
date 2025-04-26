@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { useAuth, getRole } from "./context/AuthContext";
 import { Navigate } from "react-router-dom";
 import Blog from "./Blog"
+import BlogEditor from "../components/BlogEditor"
 
 function Unauthorized(){
   return <div className="main">
@@ -15,12 +16,21 @@ function activate(section){
   console.log("button clicked")
   const postElement = document.getElementById("postSection");
   const projectElement = document.getElementById("projectSection");
+  const editorElement = document.getElementById("blog-editor");
+  console.log("This is the editor", editorElement)
   if(section === "post"){
     postElement.classList.remove("hidden");
     projectElement.classList.add("hidden");
+    editorElement.classList.add("hidden");
   }
   if(section === "project"){
     projectElement.classList.remove("hidden");
+    editorElement.classList.add("hidden");
+    postElement.classList.add("hidden");
+  }
+  if(section === "editor"){
+    editorElement.classList.remove("hidden");
+    projectElement.classList.add("hidden");
     postElement.classList.add("hidden");
   }
 }
@@ -30,6 +40,7 @@ const AdminUI = () => {
     <nav className="admin-nav">
       <ul className="admin-ul">
         <li>
+          <button onClick={() => activate("editor")}>New Post</button>
           <button onClick={() => activate("post")}>Posts</button>
         </li>
         <li>
@@ -88,7 +99,8 @@ export default function AdminDashboard() {
         <AdminUI/>
         <div className="admin-section">
             <h1 className="admin-header text-3xl font-bold">Admin Panel</h1>
-            <div>
+            <div className="admin-panel">
+              <BlogEditor/>
               <Posts/>
               <Projects/>
             </div>

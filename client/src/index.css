@@ -391,6 +391,11 @@ textarea{
   background-color: var(--background-color-hover);
 }
 
+.admin-panel{
+  padding-left: 10rem;
+  padding-top: 8rem;
+}
+
 @media screen and (min-width: 786px) {
   :root{
     --icon-size: 30px;

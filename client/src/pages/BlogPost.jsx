@@ -59,7 +59,6 @@ function Block(post){
 }
 
 function getSectionType(section, block){
-  console.log(block.alignment)
   switch(section.type){
     case "p": return <p className="blog-text">{section.content}</p>
     case "h1": return <h1 className="blog-header-lg">{section.content}</h1>
