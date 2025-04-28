@@ -22,18 +22,7 @@ export async function Fetch(endpoint, method, token, data){
 export async function Create(endpoint, func, setLoading, newData) {
   try {
     const token = localStorage.getItem("token");
-    
-    // const res = await fetch(`http://localhost:3000/api/v1/${endpoint}`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "Authorization": `Bearer ${token}`
-    //   },
-    //   body: JSON.stringify(dataToCreate),
-    // });
-
     const res = await Fetch(endpoint, "POST", token, newData);
-
     const data = await res.json();
     func(data.data.data); // or handle returned post
   } 
@@ -58,18 +47,7 @@ export async function Create(endpoint, func, setLoading, newData) {
 export async function Update(endpoint, func, setLoading, newData) {
   try {
     const token = localStorage.getItem("token");
-
-    // const res = await fetch(`http://localhost:3000/api/v1/${endpoint}`, {
-    //   method: "PUT", // or PATCH
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "Authorization": `Bearer ${token}`
-    //   },
-    //   body: JSON.stringify(updatedData),
-    // });
-
     const res = await Fetch(endpoint, "PUT", token, newData);
-
     const data = await res.json();
     func(data.data.data); // or handle updated post
   } catch (err) {
@@ -99,22 +77,9 @@ export async function Update(endpoint, func, setLoading, newData) {
 export async function Delete(endpoint, func, setLoading) {
   try {
     const token = localStorage.getItem("token");
-
-    // const res = await fetch(`http://localhost:3000/api/v1/${endpoint}`, {
-    //   method: "DELETE",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "Authorization": `Bearer ${token}`,
-    //   }
-    // });
-    
     const res = await Fetch(endpoint, "DELETE", token);
-    
     if (!res.ok) throw new Error("Failed to delete post");
-    
     return true;
-    // const data = await res.json();
-    // func(data.data.data); // or handle updated post
   } 
   catch (err) {
     console.error("Delete failed", err);
@@ -135,17 +100,7 @@ export async function Delete(endpoint, func, setLoading) {
 export async function Get(endpoint, func, setLoading){
   try{
     const token = localStorage.getItem("token");
-    
-    // const res = await fetch(`http://localhost:3000/api/v1/${endpoint}`, {
-    //     method: "Get",
-    //     headers: {
-    //         "Content-Type": "application/json",
-    //         "Authorization": `Bearer ${token}`
-    //     }
-    // })
-
     const res = await Fetch(endpoint, "GET", token);
-
     const data = await res.json();
     func(data.data.data);
   }
