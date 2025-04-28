@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import Icons from "../components/Icons"
+import Icons from "./Icons"
 
 function CloseNav(){
   console.log('closing menu')

@@ -6,18 +6,33 @@
  * @param {Function} setLoading - State setter to control loading UI.
  * @param {Object} dataToCreate - The data that will be updated in the document.
  */
-export async function Create(endpoint, func, setLoading,  dataToCreate) {
+
+export async function Fetch(endpoint, method, token, data){
+  const body = data != undefined ? JSON.stringify(data) : undefined;
+  return await fetch(`http://localhost:3000/api/v1/${endpoint}`, {
+    method: `${method}`,
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    },
+    body: body
+  });
+}
+
+export async function Create(endpoint, func, setLoading, newData) {
   try {
     const token = localStorage.getItem("token");
     
-    const res = await fetch(`http://localhost:3000/api/v1/${endpoint}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      },
-      body: JSON.stringify(dataToCreate),
-    });
+    // const res = await fetch(`http://localhost:3000/api/v1/${endpoint}`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "Authorization": `Bearer ${token}`
+    //   },
+    //   body: JSON.stringify(dataToCreate),
+    // });
+
+    const res = await Fetch(endpoint, "POST", token, newData);
 
     const data = await res.json();
     func(data.data.data); // or handle returned post
@@ -40,18 +55,20 @@ export async function Create(endpoint, func, setLoading,  dataToCreate) {
  * @param {Function} setLoading - State setter to control loading UI.
  * @param {Object} updatedData - The data that will be updated in the document.
  */
-export async function Update(endpoint, func, setLoading, updatedData) {
+export async function Update(endpoint, func, setLoading, newData) {
   try {
     const token = localStorage.getItem("token");
 
-    const res = await fetch(`http://localhost:3000/api/v1/${endpoint}`, {
-      method: "PUT", // or PATCH
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      },
-      body: JSON.stringify(updatedData),
-    });
+    // const res = await fetch(`http://localhost:3000/api/v1/${endpoint}`, {
+    //   method: "PUT", // or PATCH
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "Authorization": `Bearer ${token}`
+    //   },
+    //   body: JSON.stringify(updatedData),
+    // });
+
+    const res = await Fetch(endpoint, "PUT", token, newData);
 
     const data = await res.json();
     func(data.data.data); // or handle updated post
@@ -83,13 +100,15 @@ export async function Delete(endpoint, func, setLoading) {
   try {
     const token = localStorage.getItem("token");
 
-    const res = await fetch(`http://localhost:3000/api/v1/${endpoint}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
-      }
-    });
+    // const res = await fetch(`http://localhost:3000/api/v1/${endpoint}`, {
+    //   method: "DELETE",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "Authorization": `Bearer ${token}`,
+    //   }
+    // });
+    
+    const res = await Fetch(endpoint, "DELETE", token);
     
     if (!res.ok) throw new Error("Failed to delete post");
     
@@ -117,13 +136,15 @@ export async function Get(endpoint, func, setLoading){
   try{
     const token = localStorage.getItem("token");
     
-    const res = await fetch(`http://localhost:3000/api/v1/${endpoint}`, {
-        method: "Get",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-        }
-    })
+    // const res = await fetch(`http://localhost:3000/api/v1/${endpoint}`, {
+    //     method: "Get",
+    //     headers: {
+    //         "Content-Type": "application/json",
+    //         "Authorization": `Bearer ${token}`
+    //     }
+    // })
+
+    const res = await Fetch(endpoint, "GET", token);
 
     const data = await res.json();
     func(data.data.data);
@@ -136,15 +157,3 @@ export async function Get(endpoint, func, setLoading){
     setLoading(false);
   }
 }
-
-// async function useGetPost(endpoint, setPost, setLoading){
-//     useEffect(() => {
-//       fetch(`http://localhost:3000/api/v1/posts/${endpoint}`)
-//         .then(res => res.json())
-//         .then(data => {
-//           setPost(data.data.data);
-//           setLoading(false);
-//         })
-//         .catch(() => setLoading(false));
-//     }, [endpoint]);  
-// }
