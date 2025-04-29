@@ -151,7 +151,7 @@ exports.isLoggedIn = async (req, res, next) => {
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {
     // roles ['admin', 'lead-guide']. role='user'
-    console.log(req.user)
+    // console.log(req.user)
     if (!roles.includes(req.user.role)) {
       if(roles[0] === "admin" && roles.length == 1){
         return next(

@@ -46,9 +46,12 @@ const postSchema = new mongoose.Schema({
   description: String,
   thumbnail: {
     type: String,
-    required: [true, 'A post needs to have a url for a thumbnail image.']
+    // required: [true, 'A post needs to have a url for a thumbnail image.']
   },
-  blocks: [blockSchema],
+  blocks: {
+    type: [blockSchema],
+    required: [true, "A post needs to have a block attached."]
+  },
   createdAt: {
     type: Date,
     default: Date.now,
