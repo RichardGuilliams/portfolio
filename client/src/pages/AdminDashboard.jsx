@@ -13,11 +13,11 @@ function Unauthorized(){
 }
 
 function activate(section){
-  console.log("button clicked")
-  const postElement = document.getElementById("postSection");
-  const projectElement = document.getElementById("projectSection");
+  // console.log("button clicked")
+  const postElement = document.getElementById("post-section");
+  const projectElement = document.getElementById("project-section");
   const editorElement = document.getElementById("blog-editor");
-  console.log("This is the editor", editorElement)
+  // console.log("This is the editor", editorElement)
   if(section === "post"){
     postElement.classList.remove("hidden");
     projectElement.classList.add("hidden");
@@ -59,7 +59,7 @@ const Analytics = () => {
 
 const Posts = () => {
   return(
-    <div className="hidden" id="postSection">
+    <div className="hidden" id="post-section">
       <Blog admin={true}/>
     </div>
   )
@@ -67,7 +67,7 @@ const Posts = () => {
 
 const Projects = () => {
   return(
-    <div className="hidden" id="projectSection">
+    <div className="hidden" id="project-section">
       These are the projects.
     </div>
   )

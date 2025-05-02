@@ -13,9 +13,11 @@ const handleDuplicateFieldsDB = err => {
 };
 
 const handleValidationErrorDB = err => {
-  const errors = Object.values(err.errors).map(el => el.message);
+  const errors = err.errors
+  ? Object.values(err.errors).map(el => el.message)
+  : ["Unknown validation error"];
 
-  const message = `Invalid input data. ${errors.join('. ')}`;
+const message = `Invalid input data. ${errors.join('. ')}`;
   return new AppError(message, 400);
 };
 
@@ -83,7 +85,7 @@ const sendErrorProd = (err, req, res) => {
 };
 
 module.exports = (err, req, res, next) => {
-  // console.log(err.stack);
+  console.log(err.stack);
 
   err.statusCode = err.statusCode || 500;
   err.status = err.status || 'error';

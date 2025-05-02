@@ -48,6 +48,7 @@ function setLayout(layout){
 }
 
 function Block(post){
+  // console.log(post)
   return post.blocks.map((block, index) => {
     const alignmentClass = setAlignment(block.alignment);
     const sizeClass = setSize(block.size);
@@ -64,7 +65,7 @@ function getSectionType(section, block){
     case "h1": return <h1 className="blog-header-lg">{section.content}</h1>
     case "h2": return <h2 className="blog-header-md">{section.content}</h2>
     case "h3": return <h3 className="blog-header-sm">{section.content}</h3>
-    case "img": return <img className={`blog-img ${block.alignment} ${section.alignment} ${section.size}`} src={`http://localhost:3000/images/posts/${section.content}`} alt="" height={100} width={100}/>
+    case "img": return <img className={`blog-img ${block.alignment} ${section.alignment} ${section.size}`} src={`http://localhost:3000/${section.content}`} alt="" height={100} width={100}/>
   }
 }
 
@@ -90,6 +91,7 @@ export default function BlogPost() {
       <div className="blog-section">
         <h1 className="main-section-header text-4xl font-bold">{post.title}</h1>
         {Block(post)}
+        {/* {post.content} */}
       </div>
       <Links/>
     </div>

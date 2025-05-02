@@ -9,10 +9,6 @@ const sectionSchema = new mongoose.Schema({
   content:{
     type: String,
     default: "This is the content"
-  },
-  size:{
-    type: String,
-    enum:["3_4", "1_2", "1_1", "2_5"]
   }
 })
 
@@ -24,10 +20,6 @@ const blockSchema = new mongoose.Schema({
     type: String,
     enum: ["horizontal", "vertical"],
     default: "vertical",
-  },
-  size: {
-    type: String, // e.g., 'sm', 'md', 'lg', 'xl'
-    default: "md",
   },
   alignment: {
     type: String,
@@ -50,7 +42,7 @@ const postSchema = new mongoose.Schema({
   },
   blocks: {
     type: [blockSchema],
-    required: [true, "A post needs to have a block attached."]
+    // required: [true, "A post needs to have a block attached."]
   },
   createdAt: {
     type: Date,

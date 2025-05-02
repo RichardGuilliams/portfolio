@@ -60,11 +60,23 @@ app.use('/api', packages.limiter);
 //     bookingController.webhookCheckout);
 
 //Body parser, reading data from body into req.body
-app.use(packages.express.json({ limit: '10kb' }));
-app.use(packages.express.urlencoded({
-        extended: true,
-    limit: '10kb'
-}))
+app.use((req, res, next) => {
+    const contentType = req.headers['content-type'] || '';
+    if (!contentType.startsWith('multipart/form-data')) {
+      express.json({ limit: '10kb' })(req, res, next);
+    } else {
+      next();
+    }
+  });
+  
+  app.use((req, res, next) => {
+    const contentType = req.headers['content-type'] || '';
+    if (!contentType.startsWith('multipart/form-data')) {
+      express.urlencoded({ extended: true, limit: '10kb' })(req, res, next);
+    } else {
+      next();
+    }
+  });
 app.use(packages.cookieParser());
 
 

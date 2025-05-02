@@ -7,15 +7,44 @@
  * @param {Object} dataToCreate - The data that will be updated in the document.
  */
 
+export async function FormCreate(endpoint, func, setLoading, data) {
+  const token = localStorage.getItem("token");
+
+  try {
+    const res = await fetch(`http://localhost:3000/api/v1/${endpoint}`, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        // DO NOT add Content-Type here when using FormData
+      },
+      body: data
+    });
+
+    if (!res.ok) {
+      const errorText = await res.text();
+      throw new Error(`Error ${res.status}: ${errorText}`);
+    }
+
+    const d = await res.json();
+    func(d); // update state or handle result
+  } catch (err) {
+    console.error("Submission error:", err);
+    return false;
+  } finally {
+    setLoading(false);
+  }
+}
+
 export async function Fetch(endpoint, method, token, data){
   const body = data != undefined ? JSON.stringify(data) : undefined;
+  // console.log(body);
   return await fetch(`http://localhost:3000/api/v1/${endpoint}`, {
     method: `${method}`,
     headers: {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${token}`
     },
-    body: body
+    body
   });
 }
 
@@ -23,11 +52,13 @@ export async function Create(endpoint, func, setLoading, newData) {
   try {
     const token = localStorage.getItem("token");
     const res = await Fetch(endpoint, "POST", token, newData);
+    // console.log(res.data)
     const data = await res.json();
+    console.log("Sucess", data)
     func(data.data.data); // or handle returned post
   } 
   catch (err) {
-    console.error("Create failed", err);
+    console.error("Create failed", err.message, err.errors);
     return false;
   }
   finally{

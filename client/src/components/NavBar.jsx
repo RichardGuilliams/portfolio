@@ -2,12 +2,12 @@ import { Link } from 'react-router-dom';
 import Icons from "./Icons"
 
 function CloseNav(){
-  console.log('closing menu')
+  // console.log('closing menu')
   document.getElementById('mobile-nav').classList.add('hidden')
 }
 
 function OpenMenu(){
-  console.log('opening menu')
+  // console.log('opening menu')
   document.getElementById('mobile-nav').classList.remove('hidden')
 }
 

@@ -4,25 +4,6 @@ import Links from "../components/Links"
 import NavBar from "../components/NavBar";
 import { Get, Delete } from "../methods/requests"
 
-function useGetPosts(setPosts, setError, setLoading){
-  useEffect(() => {
-    // Async function to fetch posts
-    const fetchPosts = async () => {
-      try {
-        const res = await fetch("http://localhost:3000/api/v1/posts");
-        const data = await res.json();
-        setPosts(data.data.data);  // Set the posts state with fetched data
-      } catch (err) {
-        setError('Failed to fetch posts');  // Handle any errors
-      } finally {
-        setLoading(false);  // Set loading to false after the request completes  
-      }
-    };
-  
-    fetchPosts();  // Call the fetchPosts function
-  }, []);  // Empty dependency array means this will run once on mount
-}
-
 const Posts = ({ posts, admin = false, setPosts, setLoading}) => {
   return(
     <div className="card">
@@ -31,11 +12,11 @@ const Posts = ({ posts, admin = false, setPosts, setLoading}) => {
       ) : (
         posts.map(post => (
           <div>
-              {console.log(post)}
+              {/* {console.log(post)} */}
               <button onClick={() => {Delete(`posts/${post._id}`, setPosts, setLoading)}} className="admin-button">Delete</button>
               <button onClick={() => {}} className="admin-button">Edit</button>
               <a href={`/blog/${post._id}`} className="card-link">
-                <img className="card-image"  src={`http://localhost:3000/images/posts/${post.thumbnail}`} alt="" height={100} width={100}/>
+                <img className="card-image"  src={`http://localhost:3000/${post.thumbnail}`} alt="" height={100} width={100}/>
                 <div className="card-section">
                   {admin ? <div className="admin-section">
                   </div> : null}

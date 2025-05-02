@@ -51,6 +51,7 @@ exports.updateOne = Model =>
 
 exports.createOne = Model =>
   catchAsync(async (req, res, next) => {
+    console.log("trying to create post")
     const doc = await Model.create(req.body);
 
     res.status(201).json({

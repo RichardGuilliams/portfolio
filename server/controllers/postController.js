@@ -1,5 +1,7 @@
 const Post = require("../models/postModel");
 const handler = require("./handlerFactory");
+const catchAsync = require("../utils/catchAsync")
+
 
 exports.createPost = handler.createOne(Post);
 exports.getAllPosts = handler.getAll(Post);

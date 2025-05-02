@@ -15,7 +15,7 @@ export default function ContactForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     // 🔧 Replace with your email handler (EmailJS, backend, etc.)
-    console.log('Form submitted:', formData);
+    // console.log('Form submitted:', formData);
     alert("Message sent!");
   };
 

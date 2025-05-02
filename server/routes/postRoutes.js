@@ -3,6 +3,8 @@ const router = express.Router();
 const postController = require("../controllers/postController");
 const authController = require("../controllers/authController");
 const photoController = require("../controllers/photoController");
+const multer = require("multer");
+const upload = multer({ dest: "public/images/posts" });
 
 router
     .route("/")
@@ -16,7 +18,9 @@ router.use(authController.protect, authController.restrictTo("admin"));
 
 router
     .route('/')
-    .post(photoController.processPhotoUpload('posts'), postController.createPost)
+    .post(
+        photoController.processPhotoUpload('thumbnail'),
+        postController.createPost)
     .delete(postController.deleteAllPosts)
 
 router
