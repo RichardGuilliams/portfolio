@@ -3,6 +3,7 @@ import { useAuth, getRole } from "./context/AuthContext";
 import { Navigate } from "react-router-dom";
 import Blog from "./Blog"
 import BlogEditor from "../components/BlogEditor"
+import ProjectEditor from "../components/ProjectEditor"
 
 function Unauthorized(){
   return <div className="main">
@@ -15,7 +16,7 @@ function Unauthorized(){
 function activate(section){
   // console.log("button clicked")
   const postElement = document.getElementById("post-section");
-  const projectElement = document.getElementById("project-section");
+  const projectElement = document.getElementById("project-editor");
   const editorElement = document.getElementById("blog-editor");
   // console.log("This is the editor", editorElement)
   if(section === "post"){
@@ -102,7 +103,7 @@ export default function AdminDashboard() {
             <div className="admin-panel">
               <BlogEditor/>
               <Posts/>
-              <Projects/>
+              <ProjectEditor/>
             </div>
           <Analytics/>
         </div>

@@ -16,7 +16,12 @@ router.use(authController.protect, authController.restrictTo('admin'));
 
 router
     .route("/")
-    .post(photoController.processPhotoUpload("projects"), projectController.createProject)
+    .post((req, res, next) => {
+        console.log(req.body)
+        next();
+    },
+    photoController.processSinglePhotoUpload("projectImage", "projects"), 
+    projectController.createProject)
 
 router
     .route("/:id")

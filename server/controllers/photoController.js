@@ -73,24 +73,24 @@ const upload = multer({
 });
 
 // SINGLE: Upload & resize just one image (for simple routes)
-const uploadSingle = (fieldName) => [
+const uploadSingle = (fieldName, folder) => [
   upload.single(fieldName),
-  resizeSingle(fieldName)
+  resizeSingle(fieldName, folder)
 ];
 
-const resizeSingle = (fieldName) =>
+const resizeSingle = (fieldName, folder) =>
   catchAsync(async (req, res, next) => {
+    console.log(req.body);
     if (!req.file) return next();
-
-    const filename = `${fieldName}-${req.user.id}-${Date.now()}.jpeg`;
+    const filename = `${folder}-${req.user.id}-${Date.now()}.jpeg`;
 
     await sharp(req.file.buffer)
       .resize(500, 500)
       .toFormat('jpeg')
       .jpeg({ quality: 90 })
-      .toFile(`public/images/${fieldName}/${filename}`);
+      .toFile(`public/images/${folder}/${filename}`);
 
-    req.body[fieldName] = `images/${fieldName}/${filename}`;
+    req.body.photo = `images/${folder}/${filename}`;
     next();
   });
 
@@ -160,5 +160,5 @@ const resizeMulti = (folder) =>
     next();
   });
 
-exports.processSinglePhotoUpload = uploadSingle;
+exports.processSinglePhotoUpload = (fieldName, folder) => uploadSingle(fieldName, folder);
 exports.processPhotoUpload = (folder) => [uploadMulti, resizeMulti(folder)];
