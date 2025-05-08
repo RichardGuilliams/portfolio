@@ -134,8 +134,8 @@ textarea{
 
 .mobile-nav-icon{
   margin-left: auto;
-  margin-right: 2rem;
-  margin-top: 2rem;
+  margin-right: 1.75rem;
+  margin-top: 1rem;
   width: 30px;
   height: 30px;
   fill: var(--text-color);
@@ -153,11 +153,11 @@ textarea{
 
 .main{
   height: 100dvh;
-  width: 100dvw;
+  width: 100%;
 }
 
 .main-section{
-  margin-left: 12rem;
+  margin-left: 4rem;
   margin-top: 0rem;
 }
 
@@ -251,21 +251,25 @@ textarea{
 
 .card{
   margin-top: 3rem;
-  border: 1px solid var(--text-color);
   padding: 0rem;
-  max-width: 50rem;
+  border: 1px solid var(--text-color);
+  max-width: 70rem;
   transition: all 0.3s ease;
 }
 
 .card-link{
+  margin-top: 3rem;
+  padding: 0rem;
+  border: 2px solid var(--text-color);
+  border-radius: 10px;
   display: flex;
-  width: 100%;
 }
 
 .card-image{
   margin-right: 1rem;
   height: 200px;
   width: 200px;
+  border-radius: 10px 0px 0px 10px;
 }
 
 .card-header{
@@ -311,9 +315,6 @@ textarea{
 
 .blog-section{
   max-width: 100%;
-  margin-left: 12rem;
-  margin-right: 10rem;
-  margin-top: 10rem;
 }
 
 .blog-block{
@@ -392,8 +393,13 @@ textarea{
 }
 
 .admin-panel{
-  padding-left: 10rem;
+  padding-left: 8.5rem;
   padding-top: 8rem;
+}
+
+.projects-section{
+  display: inline-block;
+  width: 100%;
 }
 
 @media screen and (min-width: 786px) {
@@ -401,6 +407,10 @@ textarea{
     --icon-size: 30px;
   }
 
+  .card-link{
+    width: 100%;
+  }
+  
   .mobile-nav{
     display: none;
   }
@@ -411,8 +421,8 @@ textarea{
   
   .main-section{
     display: inline-block;
-    margin-right: 12rem;
-    margin-left: 12rem;
+    margin-right: 8rem;
+    margin-left: 8rem;
     color: var(--text-color);
   }
   
@@ -423,7 +433,7 @@ textarea{
   .secondary-text{
     font-size: 1.5rem;
   }
-
+  
   .main-section--text{
     font-weight: bold;
     font-size: 2.5rem;
@@ -435,8 +445,9 @@ textarea{
     margin-top: 3rem;
     margin-bottom: 2rem;
   }
-
+  
   .main{
+    display: inline;
     height: 100dvh;
     width: 100dvw;
     /* display: flex; */
@@ -444,6 +455,7 @@ textarea{
 
   .blog-section{
     width: 400%;
+    /* margin: 12rem 0rem 0rem 0remF */
   }
 
   .section-links{
@@ -457,5 +469,132 @@ textarea{
   .section-links-link{
     margin-right: 2rem;
     margin: .5rem 2rem .5rem 1rem;
+  }
+
+  .editor{
+    display:inline;
+    width: 100%;
+  }
+  
+  .editor-nav{
+    margin: 2rem 1rem;
+    border: 1px solid var(--text-color);
+    padding: 1rem;
+  }
+  
+  .editor-button{
+    border: 1px solid var(--text-color);
+    padding: .25rem .75rem;
+  }
+  
+  .editor-nav > section{
+    margin: 2rem 2rem;
+  }
+  
+  .editor-input{
+    border-bottom: 1px solid var(--text-color);
+    padding: .25rem .25rem;
+  }
+
+  .editor-input:hover{
+    border-bottom: 1px solid var(--text-color-hover);
+    color: var(--text-color-hover);
+    background-color: var(--background-color-hover);
+  }
+  
+  .hidden{
+    display: none;
+  }
+
+  .block{
+    margin: 2rem 1rem;
+    border: 1px solid var(--text-color);
+    /* padding: 1rem; */
+  }
+  
+  .block > section{
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .block-section > button{
+    margin-left: auto;
+  }
+
+  .section{
+    padding: 1rem;
+  }
+
+  .section > div > select{
+    border: 1px solid var(--text-color);
+    text-align: center;
+    color: var(--text-color);
+    background-color: var(--main-color);
+    margin-right: .25rem;
+  }
+
+  .block-button{
+    padding: .25rem .75rem;
+    border: 1px solid var(--text-color)
+  }
+  
+  .block-select{
+    padding: .5rem .5rem;
+    background-color: var(--main-color);
+    color: var(--text-color);
+    border-color: var(--text-color);
+  }  
+
+  .block-select:hover{
+    padding: .5rem .5rem;
+    background-color: var(--background-color-hover);
+    color: var(--text-color-hover);
+    border-color: var(--text-color-hover);
+  }  
+  
+  select{
+    appearance: none;
+    background-color: none;
+  }
+  
+  select option{
+    box-shadow: none;
+    outline: none;
+    border: 4px solid var(--text-color);
+    background-color: var(--main-color);
+    color: var(--text-color);
+  }
+
+  .block-section{
+    display: flex;
+    width: 100%;
+  }
+
+  .input-section{
+    display: flex;
+    width: 100%;
+  }
+
+  .input-text{
+    margin-right: 1rem;
+    width: 100%;
+  }
+
+  .input-text:hover{
+    background-color: var(--background-color-hover);
+    color: var(--text-color-hover);
+  }
+
+  .input-container > textarea{
+    width: 100%;
+    resize: none; /* Prevent manual resizing */
+    overflow: hidden;
+    padding: 0.5rem;
+    font-size: 1rem;
+    line-height: 1.4;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
   }
 }

@@ -8,7 +8,7 @@ process.on('uncaughtException', err => {
     process.exit(1);
 });
 
-dotenv.config({ path: `./config.env`});
+dotenv.config({ path: `.env`});
 const app = require('./app');
 
 const DB = process.env.DATABASE.replace(`<PASSWORD>`, process.env.DATABASE_PASSWORD );
@@ -18,12 +18,7 @@ mongoose
 .then(() => console.log(`DB connection successful`))
 .catch(err => console.log('ERROR you made a mistake', err));
 
-
-
-
-// console.log(`hi`);
-
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 const server = app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 });

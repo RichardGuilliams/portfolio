@@ -15,9 +15,14 @@ function CreateElement(type, id){
 
 function ProcessInput(type, id, element){
   const el = document.createElement(element);
-  if(element === "input"){
+  if(element === "textarea"){
+    el.id = `${id.replace('section-type', "")}input`
+    el.rows = 10;
+  }
+  else if(element === "input"){
     el.type = type === "img" ? "file" : "text"
     el.id = `${id.replace('section-type', "")}input`
+    // el.className = type === "img" ? "input-file" : "input-text"
   }
   else {
     el.htmlFor = `${id.replace('section-type', "input")}`
@@ -28,37 +33,18 @@ function ProcessInput(type, id, element){
   
 function CreateInput(type, id){
   const parent = document.getElementById(id.replace("section-type", "input-section"));
-  const input = ProcessInput(type, id, "input");
+  parent.classList.add('input-container')
+  const input = ProcessInput(type, id, type === "textarea" ? "textarea" : "input");
+  input.classList.add(type === "img" ? "input-img" : "input-text")
   const label = ProcessInput(type, id, 'label');
   if(parent.children.length > 0) parent.innerHTML = null; 
   parent.appendChild(label);
   parent.appendChild(input)  
 }
 
-const Section = ({...props}) => {
-    return (
-        <div className="block-section section" id={props.id}>
-            <div className="block-section">
-                <select onChange={HandleSelect} className="block-select" id={`${props.id}-section-type`}>
-                    <option value="h1">H1</option>
-                    <option value="h2">H2</option>
-                    <option value="h3">H3</option>
-                    <option value="img">Image</option>
-                    <option value="a">Link</option>
-                    <option value="p">Text</option>
-                </select>
-                <div id={`${props.id}-input-section`}>
-                  <label className="input-label" htmlFor={`${props.id}-input`}>Text: </label>
-                  <input className="input" type="text" name={`${props.id}-input`} id={`${props.id}-input`}/>
-                </div>
-                <button><Icons.X className="block-button"/></button>
-            </div>
-        </div>
-    )
-}
 
 function HandleSelect(event){
-    if(event.target.id.includes('section-type')) return processSectionChange(event.target); 
+  if(event.target.id.includes('section-type')) return processSectionChange(event.target); 
     switch(event.target.id){
         case "block-alignment" : return
         case "block-layout" : return
@@ -73,7 +59,7 @@ function processSectionChange(target){
     case "h3": return CreateInput('h3', target.id);
     case "img": return CreateInput('img', target.id);
     case "a": return CreateInput('a', target.id);
-    case "p": return CreateInput('p', target.id);
+    case "p": return CreateInput('textarea', target.id);
   }
 }
 
@@ -92,31 +78,6 @@ function handleBlockDisplay(){
 
 function handleSectionType(){
 
-}
-
-const Block = ({...props}) => {
-    return(
-        <div className={`block-section block`} id={props.id}>
-            <div className="block-section">
-            <button onClick={() => {CreateElement("section", props.id)}} className="block-button">Add Section</button>
-            <select onChange={HandleSelect} id="alignment" className="block-select">
-                <option className="block-option" value="start">Start</option>
-                <option className="block-option" value="center">Center</option>
-                <option className="block-option" value="end">End</option>
-            </select>
-            <select onChange={HandleSelect} id="layout" className="block-select">
-                <option className="block-option" value="horizontal">Horizontal</option>
-                <option className="block-option" value="vertical">Vertical</option>
-            </select>
-            <select onChange={HandleSelect} id="display" className="block-select">
-                <option className="block-option" value="block">Block</option>
-                <option className="block-option" value="flex">Flex</option>
-            </select>
-            <button><Icons.X className="block-button"/></button>
-            </div>
-            <div id={`${props.id}-section-container`}/>
-        </div>
-    )
 }
 
 function getElementCount(type){
@@ -143,7 +104,7 @@ function processBlocks(){
   
   const thumbnailFile = document.getElementById('thumbnail').files[0];
   if(thumbnailFile) formData.append("thumbnail", thumbnailFile);
-
+  
   const blockElements = getArrayFromCollection(document.getElementsByClassName("block"));
   blockElements.map((el, i) => {
     blocks.push({});
@@ -174,10 +135,23 @@ function CreatePost(formData){
   FormCreate("posts", setData, setLoading, formData)
 }
 
+function getContentValue(type, el){
+  console.log("firing getContentValue", type)
+  switch(type){
+    case "img": return "";
+    case "p": 
+      console.log('content: ', el.querySelector("textarea").value)
+      return el.querySelector("textarea").value
+    default:
+      console.log("content:", el.querySelector("input").value)
+      return el.querySelector("input").value
+  }
+}
+
 function processSections(sections, block, formData){
   sections.forEach((el, i) => {
     const type = el.querySelector("select").value;
-    const content = type === "img" ? "" : el.querySelector("input").value;
+    const content = getContentValue(type, el);
     
     let id = el.children[0].children[0].children[1].id
     id = id.slice(0, id.length - 8)
@@ -198,29 +172,78 @@ function processSections(sections, block, formData){
   });
 }
 
+const Section = ({...props}) => {
+    return (
+        <div className="section" id={props.id}>
+            <div className="block-section">
+                <select onChange={HandleSelect} className="section-select" id={`${props.id}-section-type`}>
+                    <option value="h1">H1</option>
+                    <option value="h2">H2</option>
+                    <option value="h3">H3</option>
+                    <option value="img">Image</option>
+                    <option value="a">Link</option>
+                    <option value="p">Text</option>
+                </select>
+                <div className="input-section" id={`${props.id}-input-section`}>
+                  <label className="input-label" htmlFor={`${props.id}-input`}>Text: </label>
+                  <input className="input" type="text" name={`${props.id}-input`} id={`${props.id}-input`}/>
+                </div>
+                <button><Icons.X className="block-button"/></button>
+            </div>
+        </div>
+    )
+}
+
+const Block = ({...props}) => {
+    return(
+        <div className="block" id={props.id}>
+          <section>
+            <button onClick={() => {CreateElement("section", props.id)}} className="block-button">Add Section</button>
+            <select onChange={HandleSelect} id="alignment" className="block-select">
+                <option className="block-option" value="start">Start</option>
+                <option className="block-option" value="center">Center</option>
+                <option className="block-option" value="end">End</option>
+            </select>
+            <select onChange={HandleSelect} id="layout" className="block-select">
+                <option className="block-option" value="horizontal">Horizontal</option>
+                <option className="block-option" value="vertical">Vertical</option>
+            </select>
+            <select onChange={HandleSelect} id="display" className="block-select">
+                <option className="block-option" value="block">Block</option>
+                <option className="block-option" value="flex">Flex</option>
+            </select>
+            <button><Icons.X className="block-button button-close"/></button>
+          </section>
+          <div id={`${props.id}-section-container`}/>
+        </div>
+    )
+}
+
 export default function BlogEditor(){
     return (
         <div id="blog-editor" className="editor hidden">
             <div className="editor-nav">
                 {/* <button className="editor-button" onClick={() => {CreateElement("block", getElementCount("block"))}}>Add Block</button> */}
-                <button className="editor-button" onClick={() => {CreateElement("block")}}>Add Block</button>
                 <section>
+                  <button className="editor-button" onClick={() => {CreateElement("block")}}>Add Block</button>
+                </section>
+                <section className="editor-input">
                   <label htmlFor="title">Title: </label>
                   <input id="title" name="title" type="text"/>
                 </section>
-                <section>
+                <section className="editor-input">
                   <label htmlFor="description">Description: </label>
                   <input id="description" name="description" type="text"/>
                 </section>
-                <section>
+                <section className="editor-input">
                   <label htmlFor="thumbnail">Thumbnail: </label>
                   <input id="thumbnail" name="thumbnail" type="file"/>
                 </section>
+                <section>
+                  <button className="editor-button" onClick={() => {processBlocks()}}>Submit</button>
+                </section>
+                <div id="block-container"/>
             </div>
-            <div id="block-container">
-                
-            </div>
-            <button onClick={() => {processBlocks()}}>Submit</button>
         </div>
     )
 }

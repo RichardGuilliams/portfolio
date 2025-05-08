@@ -1,24 +1,24 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import Links from "../components/Links"
 import NavBar from "../components/NavBar";
 import { Get, Delete } from "../methods/requests"
 
 const Posts = ({ posts, admin = false, setPosts, setLoading}) => {
   return(
-    <div className="card">
+    //TODO: fix the design so the admin buttons are lined up with the header. as well as fix the way admin buttons are handled based on the url
+    <div className="blog-post-section">
       {posts.length === 0 ? (
         <p>No posts available</p>  // Show this if no posts are found
       ) : (
         posts.map(post => (
-          <div>
+          <div className="card-container">
               {/* {console.log(post)} */}
-              <button onClick={() => {Delete(`posts/${post._id}`, setPosts, setLoading)}} className="admin-button">Delete</button>
-              <button onClick={() => {}} className="admin-button">Edit</button>
               <a href={`/blog/${post._id}`} className="card-link">
-                <img className="card-image"  src={`http://localhost:3000/${post.thumbnail}`} alt="" height={100} width={100}/>
+                <img className="card-image"  src={`http://localhost:8000/${post.thumbnail}`} alt="" height={100} width={100}/>
                 <div className="card-section">
                   {admin ? <div className="admin-section">
+                    <button onClick={() => {Delete(`posts/${post._id}`, setPosts, setLoading)}} className="admin-button">Delete</button>
+                    <button onClick={() => {}} className="admin-button">Edit</button>
                   </div> : null}
                   <h1 className="card-header">{post.title}</h1>
                   <p className="card-description">{post.description}</p>

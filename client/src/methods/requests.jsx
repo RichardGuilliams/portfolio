@@ -11,7 +11,7 @@ export async function FormCreate(endpoint, func, setLoading, data) {
   const token = localStorage.getItem("token");
 
   try {
-    const res = await fetch(`http://localhost:3000/api/v1/${endpoint}`, {
+    const res = await fetch(`http://localhost:8000/api/v1/${endpoint}`, {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${token}`,
@@ -38,7 +38,7 @@ export async function FormCreate(endpoint, func, setLoading, data) {
 export async function Fetch(endpoint, method, token, data){
   const body = data != undefined ? JSON.stringify(data) : undefined;
   // console.log(body);
-  return await fetch(`http://localhost:3000/api/v1/${endpoint}`, {
+  return await fetch(`http://localhost:8000/api/v1/${endpoint}`, {
     method: `${method}`,
     headers: {
       "Content-Type": "application/json",

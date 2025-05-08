@@ -10,6 +10,7 @@ function Submit(setLoading, setData){
     formData.append("projectImage", document.getElementById("project-image").files[0]);
     formData.append("photo", "");
     formData.append("url", document.getElementById("project-url").value);
+    formData.append("tools", document.getElementById("project-tools").value);
 
     FormCreate('projects', setData, setLoading, formData);
 }
@@ -34,6 +35,10 @@ const Editor = ({setLoading, setData}) => {
                 <section className="editor-nav-section">
                     <label htmlFor="project-url">URL: </label>
                     <input type="text" name="project-url" id="project-url"/>
+                </section>
+                <section className="editor-nav-section">
+                    <label htmlFor="project-tools">Tools: <span className="editor-nav-span">Separate tags by comma.</span> </label>
+                    <input type="text" name="project-tools" id="project-tools"/>
                 </section>
                 <button id="project-submit-button" className="editor-button" onClick={() => {Submit(setLoading, setData)}}>Submit</button>
             </div>
