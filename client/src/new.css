@@ -1,0 +1,195 @@
+
+@media screen and (min-width: 786px) {
+    :root{
+      --icon-size: 30px;
+    }
+  
+    .card-link{
+      width: 100%;
+    }
+    
+    .mobile-nav{
+      display: none;
+    }
+  
+    .desktop-navbar{
+      display: block;
+    }
+    
+    .main-section{
+      display: inline-block;
+      margin-right: 8rem;
+      margin-left: 8rem;
+      color: var(--text-color);
+    }
+    
+    .main-section-header{
+      font-size: 4.5rem;
+    }
+  
+    .secondary-text{
+      font-size: 1.5rem;
+    }
+    
+    .main-section--text{
+      font-weight: bold;
+      font-size: 2.5rem;
+    }
+  
+    .bottom{
+      font-size: 1rem;
+      font-weight: 100;
+      margin-top: 3rem;
+      margin-bottom: 2rem;
+    }
+    
+    .main{
+      display: inline;
+      height: 100dvh;
+      width: 100dvw;
+    }
+  
+    .blog-section{
+      width: 400%;
+    }
+  
+    .section-links{
+      width: 100dvw;
+      position: fixed;
+      display: flex;
+      flex-direction: column;
+      align-items: end;
+    }
+  
+    .section-links-link{
+      margin-right: 2rem;
+      margin: .5rem 2rem .5rem 1rem;
+    }
+  
+    .editor{
+      display:inline;
+      width: 100%;
+    }
+    
+    .editor-nav{
+      margin: 2rem 1rem;
+      border: 1px solid var(--text-color);
+      padding: 1rem;
+    }
+    
+    .editor-button{
+      border: 1px solid var(--text-color);
+      padding: .25rem .75rem;
+    }
+    
+    .editor-nav > section{
+      margin: 2rem 2rem;
+    }
+    
+    .editor-input{
+      border-bottom: 1px solid var(--text-color);
+      padding: .25rem .25rem;
+    }
+  
+    .editor-input:hover{
+      border-bottom: 1px solid var(--text-color-hover);
+      color: var(--text-color-hover);
+      background-color: var(--background-color-hover);
+    }
+    
+    .hidden{
+      display: none;
+    }
+  
+    .block{
+      margin: 2rem 1rem;
+      border: 1px solid var(--text-color);
+    }
+    
+    .block > section{
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+    }
+  
+    .block-section > button{
+      margin-left: auto;
+    }
+  
+    .section{
+      padding: 1rem;
+    }
+  
+    .section > div > select{
+      border: 1px solid var(--text-color);
+      text-align: center;
+      color: var(--text-color);
+      background-color: var(--main-color);
+      margin-right: .25rem;
+    }
+  
+    .block-button{
+      padding: .25rem .75rem;
+      border: 1px solid var(--text-color)
+    }
+    
+    .block-select{
+      padding: .5rem .5rem;
+      background-color: var(--main-color);
+      color: var(--text-color);
+      border-color: var(--text-color);
+    }  
+  
+    .block-select:hover{
+      padding: .5rem .5rem;
+      background-color: var(--background-color-hover);
+      color: var(--text-color-hover);
+      border-color: var(--text-color-hover);
+    }  
+    
+    select{
+      appearance: none;
+      background-color: none;
+    }
+    
+    select option{
+      box-shadow: none;
+      outline: none;
+      border: 4px solid var(--text-color);
+      background-color: var(--main-color);
+      color: var(--text-color);
+    }
+  
+    .block-section{
+      display: flex;
+      width: 100%;
+    }
+  
+    .input-section{
+      display: flex;
+      width: 100%;
+    }
+  
+    .input-text{
+      margin-right: 1rem;
+      width: 100%;
+    }
+  
+    .input-text:hover{
+      background-color: var(--background-color-hover);
+      color: var(--text-color-hover);
+    }
+  
+    .input-container > textarea{
+      width: 100%;
+      resize: none; /* Prevent manual resizing */
+      overflow: hidden;
+      padding: 0.5rem;
+      font-size: 1rem;
+      line-height: 1.4;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+  }
+  

@@ -4,6 +4,7 @@ import { Navigate } from "react-router-dom";
 import Blog from "./Blog"
 import BlogEditor from "../components/BlogEditor"
 import ProjectEditor from "../components/ProjectEditor"
+import Icon from "../components/Icons"
 
 function Unauthorized(){
   return <div className="main">
@@ -33,24 +34,11 @@ function activate(section){
     editorElement.classList.remove("hidden");
     projectElement.classList.add("hidden");
     postElement.classList.add("hidden");
-  }
+  } 
 }
 
-const AdminUI = () => {
-  return(
-    <nav className="admin-nav">
-      <ul className="admin-ul">
-        <li>
-          <button onClick={() => activate("editor")}>New Post</button>
-          <button onClick={() => activate("post")}>Posts</button>
-        </li>
-        <li>
-          <button onClick={() => activate("project")}>Projects</button>
-        </li>
-      </ul>
-    </nav>
-  )
-}
+// TODO: fix the hide and show ui functions to hide the buttons as well.
+
 
 const Analytics = () => {
   return(
@@ -74,6 +62,32 @@ const Projects = () => {
   )
 }
 
+const AdminUI = () => {
+  return(
+    <nav id="admin-nav" className="admin-nav">
+      <input type="checkbox" id="sidebar-active" className="sidebar-active"/>
+      <label htmlFor="sidebar-active" >
+          <Icon.RightArrow className="admin-nav-arrow open-sidebar-button"/>
+      </label>
+      <label className="overlay" htmlFor="sidebar-active"></label>
+      <div class="nav-wrapper">
+        <label htmlFor="sidebar-active">
+            <Icon.LeftArrow className="admin-nav-arrow close-sidebar-button"/>
+        </label>
+          <ul id="admin-ul" className="admin-ul">
+            <li>
+              <button onClick={() => activate("editor")}>New Post</button>
+              <button onClick={() => activate("post")}>Posts</button>
+            </li>
+            <li>
+              <button onClick={() => activate("project")}>Projects</button>
+            </li>
+          </ul>
+      </div>
+    </nav>
+  )
+}
+
 export default function AdminDashboard() {
   const [role, setRole] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -92,11 +106,12 @@ export default function AdminDashboard() {
   }, []);
 
   if (loading) return <div>Loading...</div>;
-
+  
   if (role !== "admin") return <Unauthorized />;  
 
   return (
     <div className="main">
+      <div className="admin-nav-wrapper">
         <AdminUI/>
         <div className="admin-section">
             <h1 className="admin-header text-3xl font-bold">Admin Panel</h1>
@@ -107,6 +122,7 @@ export default function AdminDashboard() {
             </div>
           <Analytics/>
         </div>
+      </div>
       {/* your admin content here */}
     </div>
   );

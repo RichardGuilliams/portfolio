@@ -18,29 +18,31 @@ function Submit(setLoading, setData){
 
 const Editor = ({setLoading, setData}) => {
     return(
-        <div id="project-editor" className="editor hidden">
+        <div id="project-editor" className="form hidden">
             <div className="editor-nav">
-                <section className="editor-nav-section">
-                    <label htmlFor="project-title">Title: </label>
-                    <input type="text" name="project-title" id="project-title"/>
+                <section className="form-section">
+                    <label className="form-text" htmlFor="project-title">Title: </label>
+                    <input className="form-input" type="text" name="project-title" id="project-title"/>
                 </section>
-                <section className="editor-nav-section">
-                    <label htmlFor="project-description">Description: </label>
-                    <input type="text" name="project-description" id="project-description"/>
+                <section className="form-section">
+                    <label className="form-text" htmlFor="project-description">Description: </label>
+                    <input className="form-input" type="text" name="project-description" id="project-description"/>
                 </section>
-                <section className="editor-nav-section">
-                    <label htmlFor="project-image">Image: </label>
-                    <input type="file" name="project-image" id="project-image"/>
+                <section className="form-section">
+                    <label className="form-text" htmlFor="project-image">Image: </label>
+                    <input className="form-input" type="file" name="project-image" id="project-image"/>
                 </section>
-                <section className="editor-nav-section">
-                    <label htmlFor="project-url">URL: </label>
-                    <input type="text" name="project-url" id="project-url"/>
+                <section className="form-section">
+                    <label className="form-text" htmlFor="project-url">URL: </label>
+                    <input className="form-input" type="text" name="project-url" id="project-url"/>
                 </section>
-                <section className="editor-nav-section">
-                    <label htmlFor="project-tools">Tools: <span className="editor-nav-span">Separate tags by comma.</span> </label>
-                    <input type="text" name="project-tools" id="project-tools"/>
+                <section className="form-section">
+                    <label className="form-text" htmlFor="project-tools">Tools: <span className="form-text">Separate tags by comma.</span> </label>
+                    <input className="form-input" type="text" name="project-tools" id="project-tools"/>
                 </section>
-                <button id="project-submit-button" className="editor-button" onClick={() => {Submit(setLoading, setData)}}>Submit</button>
+                <section onClick={() => {Submit(setLoading, setData)}} className="form-button">
+                    <button id="project-submit-button" className="form-text">Submit</button>
+                </section>
             </div>
         </div>
     )

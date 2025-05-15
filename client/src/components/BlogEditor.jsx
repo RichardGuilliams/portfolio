@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import { createRoot} from "react-dom/client";
 import Icons from "./Icons";
-import { FormCreate, Create } from "../methods/requests"
+import { FormCreate } from "../methods/requests"
 
+//TODO: Create error alerts for the
 
 function CreateElement(type, id){
     const parent = document.getElementById(type == "block" ? "block-container" : `${id}-section-container`);
     const el = document.createElement("div");
     parent.appendChild(el);
-    const root = createRoot(el);
+    const root = createRoot(el); 
     const count = parent.childNodes.length;
     root.render(type === "block" ? <Block id={`block-${count - 1}`}/> : <Section id={`${id}-section-${count - 1}`}/>);
 }
@@ -33,7 +34,7 @@ function ProcessInput(type, id, element){
   
 function CreateInput(type, id){
   const parent = document.getElementById(id.replace("section-type", "input-section"));
-  parent.classList.add('input-container')
+  parent.classList.add('form-input')
   const input = ProcessInput(type, id, type === "textarea" ? "textarea" : "input");
   input.classList.add(type === "img" ? "input-img" : "input-text")
   const label = ProcessInput(type, id, 'label');
@@ -176,7 +177,7 @@ const Section = ({...props}) => {
     return (
         <div className="section" id={props.id}>
             <div className="block-section">
-                <select onChange={HandleSelect} className="section-select" id={`${props.id}-section-type`}>
+                <select onChange={HandleSelect} className="section-select form-text" id={`${props.id}-section-type`}>
                     <option value="h1">H1</option>
                     <option value="h2">H2</option>
                     <option value="h3">H3</option>
@@ -184,9 +185,9 @@ const Section = ({...props}) => {
                     <option value="a">Link</option>
                     <option value="p">Text</option>
                 </select>
-                <div className="input-section" id={`${props.id}-input-section`}>
-                  <label className="input-label" htmlFor={`${props.id}-input`}>Text: </label>
-                  <input className="input" type="text" name={`${props.id}-input`} id={`${props.id}-input`}/>
+                <div className="input-section form-section-container" id={`${props.id}-input-section`}>
+                  <label className="input-label form-text" htmlFor={`${props.id}-input`}>Text: </label>
+                  <input className=" form-text" type="text" name={`${props.id}-input`} id={`${props.id}-input`}/>
                 </div>
                 <button><Icons.X className="block-button"/></button>
             </div>
@@ -198,51 +199,53 @@ const Block = ({...props}) => {
     return(
         <div className="block" id={props.id}>
           <section>
-            <button onClick={() => {CreateElement("section", props.id)}} className="block-button">Add Section</button>
-            <select onChange={HandleSelect} id="alignment" className="block-select">
+            <section onClick={() => {CreateElement("section", props.id)}} className="form-button">
+              <button className="block-button form-text">Add Section</button>
+            </section>
+            <select onChange={HandleSelect} id="alignment" className="block-select form-text">
                 <option className="block-option" value="start">Start</option>
                 <option className="block-option" value="center">Center</option>
-                <option className="block-option" value="end">End</option>
+                <option className="block-option" value="end">End</option> 
             </select>
-            <select onChange={HandleSelect} id="layout" className="block-select">
+            <select onChange={HandleSelect} id="layout" className="block-select form-text">
                 <option className="block-option" value="horizontal">Horizontal</option>
                 <option className="block-option" value="vertical">Vertical</option>
             </select>
-            <select onChange={HandleSelect} id="display" className="block-select">
+            <select onChange={HandleSelect} id="display" className="block-select form-text">
                 <option className="block-option" value="block">Block</option>
                 <option className="block-option" value="flex">Flex</option>
             </select>
             <button><Icons.X className="block-button button-close"/></button>
           </section>
-          <div id={`${props.id}-section-container`}/>
+          <div className="section-container" id={`${props.id}-section-container`}/>
         </div>
     )
 }
 
 export default function BlogEditor(){
     return (
-        <div id="blog-editor" className="editor hidden">
+        <div id="blog-editor" className="form hidden">
             <div className="editor-nav">
                 {/* <button className="editor-button" onClick={() => {CreateElement("block", getElementCount("block"))}}>Add Block</button> */}
-                <section>
-                  <button className="editor-button" onClick={() => {CreateElement("block")}}>Add Block</button>
+                <section className="form-section">
+                  <label className="form-text" htmlFor="title">Title: </label>
+                  <input className="form-text" id="title" name="title" type="text"/>
                 </section>
-                <section className="editor-input">
-                  <label htmlFor="title">Title: </label>
-                  <input id="title" name="title" type="text"/>
+                <section className="form-section">
+                  <label className="form-text" htmlFor="description">Description: </label>
+                  <input className="form-text" id="description" name="description" type="text"/>
                 </section>
-                <section className="editor-input">
-                  <label htmlFor="description">Description: </label>
-                  <input id="description" name="description" type="text"/>
+                <section className="form-section">
+                  <label className="form-text" htmlFor="thumbnail">Thumbnail: </label>
+                  <input className="form-text" id="thumbnail" name="thumbnail" type="file"/>
                 </section>
-                <section className="editor-input">
-                  <label htmlFor="thumbnail">Thumbnail: </label>
-                  <input id="thumbnail" name="thumbnail" type="file"/>
-                </section>
-                <section>
-                  <button className="editor-button" onClick={() => {processBlocks()}}>Submit</button>
+                <section onClick={() => {CreateElement("block")}} className="form-button">
+                  <button className="editor-button form-text">Add Block</button>
                 </section>
                 <div id="block-container"/>
+                <section onClick={() => {processBlocks()}} className="form-button" >
+                  <button className="form-text">Submit</button>
+                </section>
             </div>
         </div>
     )
