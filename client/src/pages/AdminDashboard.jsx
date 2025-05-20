@@ -66,10 +66,12 @@ const AdminUI = () => {
   return(
     <nav id="admin-nav" className="admin-nav">
       <input type="checkbox" id="sidebar-active" className="sidebar-active"/>
-      <label htmlFor="sidebar-active" >
-          <Icon.RightArrow className="admin-nav-arrow open-sidebar-button"/>
-      </label>
-      <label className="overlay" htmlFor="sidebar-active"></label>
+      <div className="nav-section-top">
+        <label htmlFor="sidebar-active" >
+            <Icon.RightArrow className="admin-nav-arrow open-sidebar-button"/>
+        </label>
+      </div>
+      <label className="overlay" htmlFor="sidebar-active"/>
       <div class="nav-wrapper">
         <label htmlFor="sidebar-active">
             <Icon.LeftArrow className="admin-nav-arrow close-sidebar-button"/>
@@ -78,7 +80,7 @@ const AdminUI = () => {
             <li>
               <button onClick={() => activate("editor")}>New Post</button>
               <button onClick={() => activate("post")}>Posts</button>
-            </li>
+            </li> 
             <li>
               <button onClick={() => activate("project")}>Projects</button>
             </li>
@@ -98,7 +100,7 @@ export default function AdminDashboard() {
       setLoading(false);
       return;
     }
-
+    
     getRole(token).then((r) => {
       setRole(r);
       setLoading(false);    
@@ -108,20 +110,20 @@ export default function AdminDashboard() {
   if (loading) return <div>Loading...</div>;
   
   if (role !== "admin") return <Unauthorized />;  
-
+  
   return (
     <div className="main">
       <div className="admin-nav-wrapper">
         <AdminUI/>
-        <div className="admin-section">
-            <h1 className="admin-header text-3xl font-bold">Admin Panel</h1>
-            <div className="admin-panel">
-              <BlogEditor/>
-              <Posts/>
-              <ProjectEditor/>
-            </div>
-          <Analytics/>
-        </div>
+      </div>
+      <div className="admin-section">
+          <h1 className="admin-header text-3xl font-bold">Admin Panel</h1>
+          <div className="admin-panel">
+            <BlogEditor/>
+            <Posts/>
+            <ProjectEditor/>
+          </div>
+        <Analytics/>
       </div>
       {/* your admin content here */}
     </div>
