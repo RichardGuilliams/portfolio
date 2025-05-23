@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import Links from "../components/Links"
 import NavBar from "../components/NavBar";
-import { Get, Delete } from "../methods/requests"
+import { Get, Delete } from "../methods/requests";
+import Editor from "../methods/CreateBlogPost.jsx";
 
-const Posts = ({ posts, admin = false, setPosts, setLoading}) => {
-	return(
+const Posts = ({ posts, admin = false, setPosts, setLoading}) => { return(
 		//TODO: fix the design so the admin buttons are lined up with the header. as well as fix the way admin buttons are handled based on the url
 		<div className="blog-post-section">
 			{posts.length === 0 ? (
@@ -32,7 +32,7 @@ const Card = ({ post, admin = false, setPosts, setLoading }) => {
 			<a href={`/blog/${post._id}`} className="card-link">
 				<img className="card-image"  src={`http://localhost:8000/${post.thumbnail}`} alt="" height={100} width={100}/>
 				<div className="card-section">
-					<AdminButtons post={post} admin={admin} setPosts={setPosts} setLoading={setLoading}/>
+					<AdminButtons id={post._id} admin={admin} setPosts={setPosts} setLoading={setLoading}/>
 					<h1 className="card-header">{post.title}</h1>
 					<p className="card-description">{post.description}</p>
 				</div>
@@ -41,11 +41,20 @@ const Card = ({ post, admin = false, setPosts, setLoading }) => {
 	)
 }
 
-const AdminButtons = ({post, admin = false, setPosts, setLoading}) => {
+const AdminButtons = ({id, admin = false, setPosts, setLoading}) => {
+	const [post, setPost] = useState();
 	return(
 		admin ? <div className="admin-button-section">
-			<button onClick={() => {Delete(`posts/${post._id}`, setPosts, setLoading)}} className="admin-button">Delete</button>
-			<button onClick={() => {}} className="admin-button">Edit</button>
+			<button onClick={(e) => {
+				e.stopPropagation();
+				e.preventDefault();
+				Delete(`posts/${id}`, setPosts, setLoading)}
+			} className="admin-button">Delete</button>
+			<button onClick={(e) => {
+				e.stopPropagation();
+				e.preventDefault();
+				Editor.EditBlogPost(id, setPost, setLoading)}
+			} className="admin-button">Edit</button>
 		</div> : null
 	)
 }
