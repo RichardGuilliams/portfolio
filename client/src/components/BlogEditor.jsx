@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { createRoot} from "react-dom/client";
+import { createRoot } from "react-dom/client";
 import Icons from "./Icons";
 import { FormCreate } from "../methods/requests";
 import Editor from "../methods/CreateBlogPost.jsx";
@@ -113,31 +113,31 @@ function processSections(sections, block, formData){
   });
 }
 */
-export default function BlogEditor(){
-    return (
-        <div id="blog-editor" className="form hidden">
-            <div className="editor-nav">
-                {/* <button className="editor-button" onClick={() => {CreateElement("block", getElementCount("block"))}}>Add Block</button> */}
-                <section className="form-section">
-                  <label className="form-text" htmlFor="title">Title: </label>
-                  <input className="form-text" id="title" name="title" type="text"/>
-                </section>
-                <section className="form-section">
-                  <label className="form-text" htmlFor="description">Description: </label>
-                  <input className="form-text" id="description" name="description" type="text"/>
-                </section>
-                <section className="form-section">
-                  <label className="form-text" htmlFor="thumbnail">Thumbnail: </label>
-                  <input className="form-text" id="thumbnail" name="thumbnail" type="file"/>
-                </section>
-                <section onClick={() => {Editor.CreateElement("block")}} className="form-button">
-                  <button className="editor-button form-text">Add Block</button>
-                </section>
-                <div id="block-container"/>
-                <section id="submit-button" onClick={() => {Editor.ProcessBlocks('post')}} className="form-button" >
-                  <button className="form-text">Submit</button>
-                </section>
-            </div>
-        </div>
-    )
+export default function BlogEditor() {
+	return (
+		<div id="blog-editor" className="form hidden">
+			<div className="editor-nav">
+				{/* <button className="editor-button" onClick={() => {CreateElement("block", getElementCount("block"))}}>Add Block</button> */}
+				<section className="form-section">
+					<label className="form-text" htmlFor="title">Title: </label>
+					<input className="form-text" id="title" name="title" type="text" />
+				</section>
+				<section className="form-section">
+					<label className="form-text" htmlFor="description">Description: </label>
+					<input className="form-text" id="description" name="description" type="text" />
+				</section>
+				<section className="form-section">
+					<label className="form-text" htmlFor="thumbnail">Thumbnail: </label>
+					<input className="form-text" id="thumbnail" name="thumbnail" type="file" />
+				</section>
+				<section onClick={() => { Editor.CreateElement("block") }} className="form-button">
+					<button className="editor-button form-text">Add Block</button>
+				</section>
+				<div id="block-container" />
+				<section id="submit-button" className="form-button" >
+					<button className="form-text">Submit</button>
+				</section>
+			</div>
+		</div>
+	)
 }

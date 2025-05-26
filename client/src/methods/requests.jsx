@@ -7,12 +7,12 @@
  * @param {Object} dataToCreate - The data that will be updated in the document.
  */
 
-export async function FormCreate(endpoint, func, setLoading, data) {
+export async function FormCreate(endpoint, func, setLoading, data, type) {
 	const token = localStorage.getItem("token");
 
 	try {
 		const res = await fetch(`http://localhost:8000/api/v1/${endpoint}`, {
-			method: "POST",
+			method: type,
 			headers: {
 				"Authorization": `Bearer ${token}`,
 				// DO NOT add Content-Type here when using FormData
@@ -36,7 +36,7 @@ export async function FormCreate(endpoint, func, setLoading, data) {
 	}
 }
 
-export async function Fetch(endpoint, method, token, data){
+export async function Fetch(endpoint, method, token, data) {
 	const body = data != undefined ? JSON.stringify(data) : undefined;
 	// console.log(body);
 	return await fetch(`http://localhost:8000/api/v1/${endpoint}`, {
@@ -58,12 +58,12 @@ export async function Create(endpoint, func, setLoading, newData) {
 		console.log("Sucess", data)
 		func(data.data.data);
 		return data.data.data// or handle returned post
-	} 
+	}
 	catch (err) {
 		console.error("Create failed", err.message, err.errors);
 		return false;
 	}
-	finally{
+	finally {
 		setLoading(false);
 	}
 }
@@ -87,7 +87,7 @@ export async function Update(endpoint, func, setLoading, newData) {
 	} catch (err) {
 		console.error("Update failed", err);
 	}
-	finally{
+	finally {
 		setLoading(true)
 	}
 }
@@ -114,12 +114,12 @@ export async function Delete(endpoint, func, setLoading) {
 		const res = await Fetch(endpoint, "DELETE", token);
 		if (!res.ok) throw new Error("Failed to delete post");
 		return true;
-	} 
+	}
 	catch (err) {
 		console.error("Delete failed", err);
 		return false;
 	}
-	finally{
+	finally {
 		setLoading(false);
 	}
 }
@@ -131,8 +131,8 @@ export async function Delete(endpoint, func, setLoading) {
  * @param {Function} func - State setter to update data.
  * @param {Function} setLoading - State setter to control loading UI.
  */
-export async function Get(endpoint, func, setLoading){
-	try{
+export async function Get(endpoint, func, setLoading) {
+	try {
 		const token = localStorage.getItem("token");
 		const res = await Fetch(endpoint, "GET", token);
 		const data = await res.json();
@@ -143,7 +143,7 @@ export async function Get(endpoint, func, setLoading){
 		console.error("Get Failed:", err);
 		return false;
 	}
-	finally{
+	finally {
 		setLoading(false);
 	}
 }
