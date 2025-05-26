@@ -1,16 +1,16 @@
-import { useState, useEffect } from "react"
-import { useAuth, getRole } from "./context/AuthContext";
-import { Navigate } from "react-router-dom";
-import Blog from "./Blog"
-import BlogEditor from "../components/BlogEditor"
-import ProjectEditor from "../components/ProjectEditor"
-import Editor from "../methods/CreateBlogPost"
-import Icon from "../components/Icons"
+import { useState, useEffect } from "react";
+import { getRole } from "./context/AuthContext";
+import Blog from "./Blog";
+import BlogEditor from "../components/BlogEditor";
+import ProjectEditor from "../components/ProjectEditor";
+import Editor from "../methods/CreateBlogPost";
+import Icon from "../components/Icons";
+import NavBar from "../components/NavBar";
 
 function Unauthorized() {
 	return <div className="main">
 		<div className="main-section">
-			<div className="main-section-header">Unauthorized Access</div>;
+			<div className="main-section-header">Unauthorized Access</div>
 		</div>
 	</div>
 }
@@ -39,27 +39,10 @@ function activate(section) {
 	}
 }
 
-// TODO: fix the hide and show ui functions to hide the buttons as well.
-
-
-const Analytics = () => {
-	return (
-		<div></div>
-	)
-}
-
 const Posts = () => {
 	return (
 		<div className="hidden" id="post-section">
 			<Blog admin={true} />
-		</div>
-	)
-}
-
-const Projects = () => {
-	return (
-		<div className="hidden" id="project-section">
-			These are the projects.
 		</div>
 	)
 }
@@ -115,6 +98,7 @@ export default function AdminDashboard() {
 
 	return (
 		<div className="main">
+			<NavBar />
 			<div className="admin-nav-wrapper">
 				<AdminUI />
 			</div>
@@ -125,7 +109,6 @@ export default function AdminDashboard() {
 					<Posts />
 					<ProjectEditor />
 				</div>
-				<Analytics />
 			</div>
 			{/* your admin content here */}
 		</div>
