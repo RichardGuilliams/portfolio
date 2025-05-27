@@ -30,78 +30,100 @@ const AppError = require("./appError.js");
 //   })
 //
 
-module.exports = class Email{
-    constructor(user, url){
-        this.to = user.email;
-        this.firstName = user.name.split(' ')[0];
-        this.url = url;
-        this.from = `Richard Guilliams <${process.env.EMAIL_FROM}>`
-    }
+module.exports = class Email {
+	constructor(user, url) {
+		this.to = user.email;
+		this.firstName = user.name.split(' ')[0];
+		this.url = url;
+		this.from = `Richard Guilliams <${process.env.EMAIL_FROM}>`
+	}
 
-    newTransport(){
-        if(process.env.NODE_ENV === 'production') {
-            // Sendgrid
-            return nodemailer.createTransport({
-                service: 'SendGrid',
-                auth: {
-                    user: process.env.SENDGRID_USER,
-                    pass: process.env.SENDGRID_PASSWORD,
-                }
-            });
-        }
+	newTransport() {
+		if (process.env.NODE_ENV === 'production') {
+			// Sendgrid
+			return nodemailer.createTransport({
+				service: 'SendGrid',
+				auth: {
+					user: process.env.SENDGRID_USER,
+					pass: process.env.SENDGRID_PASSWORD,
+				}
+			});
+		}
 
-        //1 Create Transporter
-        return nodemailer.createTransport({
-            host: process.env.EMAIL_HOST,
-            port: process.env.EMAIL_PORT,
-            auth: {
-                user: process.env.EMAIL_USERNAME,
-                pass: process.env.EMAIL_PASSWORD
-            }
-        })
-    }
-    
-    async send(template, subject){
-        require('@babel/register')({
-            extensions: ['.js', '.jsx'],
-            presets: ['@babel/preset-env', '@babel/preset-react']
-          });
-        const Component = require(path.join(__dirname, `../views/${template}.jsx`)).default;
+		//1 Create Transporter
+		return nodemailer.createTransport({
+			host: process.env.EMAIL_HOST,
+			port: process.env.EMAIL_PORT,
+			auth: {
+				user: process.env.EMAIL_USERNAME,
+				pass: process.env.EMAIL_PASSWORD
+			}
+		})
+	}
 
-        // 2. Render to static HTML
-        const html = ReactDOMServer.renderToStaticMarkup(
-          React.createElement(Component, {
-            firstName: this.firstName,
-            url: this.url,
-            subject
-          })
-        );
-      
-        // 3. Email options
-        const emailOptions = {
-          from: this.from,
-          to: this.to,
-          subject,
-          html,
-          text: htmlToText(html)
-        };
+	async send(template, subject) {
+		require('@babel/register')({
+			extensions: ['.js', '.jsx'],
+			presets: ['@babel/preset-env', '@babel/preset-react']
+		}); const Component = require(path.join(__dirname, `../views/${template}.jsx`)).default;
 
-      
-        // 4. Send it
-        try {
-            await this.newTransport().sendMail(emailOptions);
-            console.log('email sent successfully');
-          } catch (err) {
-            console.error('❌ Email sending error:', err);
-            throw new AppError("The email did not send", 500);
-          }
-    }
+		// 2. Render to static HTML
+		const html = ReactDOMServer.renderToStaticMarkup(
+			React.createElement(Component, {
+				firstName: this.firstName,
+				url: this.url,
+				subject
+			})
+		);
 
-    async sendWelcome(){
-        await this.send('welcomeEmail', 'Welcome to Richard Guilliams IO. we\'re lucky to have you.')
-    }
+		// 3. Email options
+		const emailOptions = {
+			from: this.from,
+			to: this.to,
+			subject,
+			html,
+			text: htmlToText(html)
+		};
 
-    async sendPasswordReset(){
-        await this.send('passwordReset', 'Your password reset token (valid for ten minutes)');
-    }
+
+		// 4. Send it
+		try {
+			await this.newTransport().sendMail(emailOptions);
+			console.log('email sent successfully');
+		} catch (err) {
+			console.error('❌ Email sending error:', err);
+			throw new AppError("The email did not send", 500);
+		}
+	}
+
+	async sendEmail(from, subject, message) {
+		// Email options
+		const emailOptions = {
+			from: "contact@richardguilliams.dev",
+			to: "contact@richardguilliams.dev",
+			subject,
+			text: `message from: ${from}, \n ${message}`
+		}
+
+		try {
+			await this.newTransport().sendMail(emailOptions);
+			console.log('email sent successfully');
+		} catch (err) {
+			console.error('❌ Email sending error:', err);
+			throw new AppError("The email did not send", 500);
+		}
+	}
+
+	async sendWelcome() {
+		await this.send('welcomeEmail', 'Welcome to Richard Guilliams IO. we\'re lucky to have you.')
+	}
+
+	async sendPasswordReset() {
+		await this.send('passwordReset', 'Your password reset token (valid for ten minutes)');
+	}
+
+	async sendMessage(from, subject, message) {
+		await this.sendEmail(from, subject, message)
+
+	}
 }

@@ -50,6 +50,7 @@ export async function Fetch(endpoint, method, token, data) {
 }
 
 export async function Create(endpoint, func, setLoading, newData) {
+	console.log(endpoint)
 	try {
 		const token = localStorage.getItem("token");
 		const res = await Fetch(endpoint, "POST", token, newData);

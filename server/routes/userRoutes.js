@@ -9,30 +9,30 @@ router.post("/signup", authController.signup);
 router.post("/login", authController.login);
 router.post("/forgotPassword", authController.forgotPassword);
 router.post("/resetPassword/:token", authController.resetPassword);
-
+router.post("/sendMessage", userController.sendEmail)
 //Logged In Routes
 router.use(authController.protect)
 
 router.get("/getMe", userController.getMe, userController.getUser);
 router.patch("/updatePassword", authController.updatePassword);
 router.post("/logout", authController.logout);
-router.patch(   
-    '/updateMe', 
-    photoController.processPhotoUpload('users'),
-    userController.updateMe
+router.patch(
+	'/updateMe',
+	photoController.processPhotoUpload('users'),
+	userController.updateMe
 );
 
 //Admin Routes
 router.use(authController.restrictTo("admin"))
 
 router
-    .route("/")
-    .post(userController.createUser)
-    .get(userController.getAllUsers)
+	.route("/")
+	.post(userController.createUser)
+	.get(userController.getAllUsers)
 
 router
-    .route("/:id")
-    .get(userController.getUser)
-    .delete(userController.deleteUser)
+	.route("/:id")
+	.get(userController.getUser)
+	.delete(userController.deleteUser)
 
 module.exports = router;

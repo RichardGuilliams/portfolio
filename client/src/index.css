@@ -727,6 +727,12 @@ position: absolute;
 		width: 80%
 	}
 
+	.admin-section {
+		top: 3rem;
+		padding-left: 0rem;
+		position: relative;
+	}
+
 	.admin-ul {
 		padding: 0 1rem;
 	}
